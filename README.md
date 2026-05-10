@@ -1,8 +1,6 @@
 # Heterogeneous Inference Planner
 
-# Heterogeneous Inference Planner
-
-This project is a small systems lab for reasoning about a modern inference stack:
+This is a systems project for reasoning about the modern inference stack:
 agent workloads are graphs, different phases have different bottlenecks, and the
 best placement is often heterogeneous rather than "put everything on the biggest
 GPU."
@@ -18,20 +16,18 @@ It models four things that matter in production inference:
 - **SLA tradeoffs:** the planner reports latency, energy, dollar cost, bottleneck
   reasons, and a Pareto frontier instead of a single magical score.
 
-The intent is not to pretend this is a production scheduler. It is a compact,
-inspectable prototype for the core question: **where is the data stuck, and what
+The intent is to scale answers for: **where is the data stuck, and what
 hardware should own that phase?**
 
-## Why This Exists
+Agent workloads should be represented as graphs, 
+partitioned into schedulable units, 
+placed on heterogeneous hardware (according to compute, memory, network, cost, SLA)
 
-Gimlet Labs describes the same shape of problem publicly: agent workloads should
-be represented as graphs, partitioned into schedulable units, and placed on
-heterogeneous hardware according to compute, memory, network, cost, and SLA
-constraints. Their posts discuss prefill/decode disaggregation, speculative
+Inspired by Gimlet Labs blogs on prefill/decode disaggregation, speculative
 decoding on SRAM-centric accelerators, and cost-aware graph optimization for AI
 workloads.
 
-This repo implements a minimal version of that idea:
+This repo implements a POC of the idea:
 
 1. Parse an agent workload graph.
 2. Estimate each node's compute, memory, transfer, and residency pressure.
@@ -41,7 +37,7 @@ This repo implements a minimal version of that idea:
 5. Sweep speculative decoding configurations to show when heterogeneous draft
    placement is worth the transfer overhead.
 
-## The Longer Argument
+## Thoughts:
 
 The useful performance question is no longer "can I make one operator faster?"
 That still matters, but the operator is only one island in a much larger system.
