@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+*.pyc
+reports/*.json
+reports/*.csv
+reports/*.md
+!reports/.gitkeep

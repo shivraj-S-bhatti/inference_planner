@@ -1,0 +1,40 @@
+{
+  "devices": [
+    {
+      "name": "gpu_h100_like",
+      "kind": "gpu",
+      "peak_tflops": 900.0,
+      "memory_bandwidth_tb_s": 3.35,
+      "memory_capacity_gb": 80.0,
+      "network_bandwidth_gb_s": 200.0,
+      "network_latency_ms": 0.025,
+      "power_watts": 700.0,
+      "hourly_cost_usd": 4.50,
+      "supported_ops": ["prefill", "decode", "draft", "verify", "embedding", "rerank"]
+    },
+    {
+      "name": "sram_dual_card_decode_accel",
+      "kind": "sram_accelerator",
+      "peak_tflops": 180.0,
+      "memory_bandwidth_tb_s": 150.0,
+      "memory_capacity_gb": 4.0,
+      "network_bandwidth_gb_s": 100.0,
+      "network_latency_ms": 0.04,
+      "power_watts": 160.0,
+      "hourly_cost_usd": 1.20,
+      "supported_ops": ["draft", "decode"]
+    },
+    {
+      "name": "cpu_epyc_like",
+      "kind": "cpu",
+      "peak_tflops": 6.0,
+      "memory_bandwidth_tb_s": 0.46,
+      "memory_capacity_gb": 512.0,
+      "network_bandwidth_gb_s": 50.0,
+      "network_latency_ms": 0.05,
+      "power_watts": 350.0,
+      "hourly_cost_usd": 1.00,
+      "supported_ops": ["tool", "retrieval", "embedding", "rerank", "postprocess"]
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "name": "coding_agent_long_context",
+  "sla_ms": 6000,
+  "nodes": [
+    {
+      "name": "retrieve_context",
+      "op": "retrieval",
+      "model_billion_params": 0.0,
+      "input_tokens": 0,
+      "output_tokens": 4000,
+      "batch_size": 1,
+      "dtype_bytes": 2,
+      "transfer_gb": 0.020,
+      "deps": []
+    },
+    {
+      "name": "prefill_target",
+      "op": "prefill",
+      "model_billion_params": 70.0,
+      "input_tokens": 12000,
+      "output_tokens": 1,
+      "batch_size": 1,
+      "dtype_bytes": 2,
+      "layers": 80,
+      "hidden_size": 8192,
+      "partitions": 4,
+      "transfer_gb": 0.080,
+      "deps": ["retrieve_context"]
+    },
+    {
+      "name": "draft_tokens",
+      "op": "draft",
+      "model_billion_params": 1.6,
+      "input_tokens": 12000,
+      "output_tokens": 20,
+      "batch_size": 1,
+      "dtype_bytes": 2,
+      "layers": 24,
+      "hidden_size": 2048,
+      "partitions": 2,
+      "transfer_gb": 0.010,
+      "deps": ["prefill_target"]
+    },
+    {
+      "name": "verify_tokens",
+      "op": "verify",
+      "model_billion_params": 70.0,
+      "input_tokens": 20,
+      "output_tokens": 20,
+      "batch_size": 1,
+      "dtype_bytes": 2,
+      "layers": 80,
+      "hidden_size": 8192,
+      "partitions": 4,
+      "transfer_gb": 0.010,
+      "deps": ["draft_tokens"]
+    },
+    {
+      "name": "tool_call",
+      "op": "tool",
+      "model_billion_params": 0.0,
+      "input_tokens": 500,
+      "output_tokens": 500,
+      "batch_size": 1,
+      "dtype_bytes": 2,
+      "transfer_gb": 0.005,
+      "deps": ["verify_tokens"]
+    },
+    {
+      "name": "postprocess_answer",
+      "op": "postprocess",
+      "model_billion_params": 0.0,
+      "input_tokens": 1000,
+      "output_tokens": 200,
+      "batch_size": 1,
+      "dtype_bytes": 2,
+      "transfer_gb": 0.002,
+      "deps": ["tool_call"]
+    }
+  ]
+}
