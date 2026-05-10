@@ -210,12 +210,6 @@ tests/
   test_spec_decode.py
 ```
 
-## Resume Bullet
-
-```latex
-\resumeBullet{Built a heterogeneous inference planner that models agent workloads as phase graphs, estimates compute/memory/network bottlenecks per node, and chooses Pareto-optimal placements across GPU, CPU, and SRAM-like accelerators; includes speculative decoding sweeps, KV-cache pressure modeling, and reproducible latency/energy/cost reports.}
-```
-
 ## References
 
 - Gimlet Labs, ["Designing infrastructure for running efficient AI workloads"](https://gimletlabs.ai/blog/heterogeneous-ai-infrastructure)
